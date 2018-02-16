@@ -1,11 +1,11 @@
 package graphicgame
 
 trait Entity{
-  val x:Double
-  val y:Double
-  val width:Double
-  val height: Double
-  val level: Level
+  def x:Double
+  def y:Double
+  def width:Double
+  def height: Double
+  def level: Level
   
   def update(delay:Double):Unit
   def postCheck():Unit

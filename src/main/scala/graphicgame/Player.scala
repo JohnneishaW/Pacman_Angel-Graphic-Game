@@ -2,27 +2,33 @@ package graphicgame
 
 //extend maze?
 
-class Player extends Entity {
+class Player(val level:Level) extends Entity {
+  level+=this
   private var _x =5.0
-  private var _y = 6.0
-  //val level = 
+  private var _y = 5.0
+  val speed = 3
    
-   val x = _x
-   val y = _y
-   val width = 12.0
-   val height = 6.0
+   def x = _x
+   def y = _y
+   def width = 1
+   def height = 1.0
    
-   
-   private var delaySum = 0.0
-   val interval = 0.0
+ 
    
    def update(delay:Double): Unit = {
-     delaySum +=delay
-     if(delaySum >= interval){
-       x+1
-       y+1
-       delaySum = 0.0
-     }
+    if(movingUp) move(0,-delay*speed)
+    if(movingDown) move(0, delay*speed)
+    if(movingLeft) move(-delay*speed,0)
+    if(movingRight) move(delay*speed,0)
+    
+  }
+  
+  def move(dx:Double, dy:Double) = {
+    if(level.maze.isClear(_x+dx, _y+dy, width, height)){
+    	_y+=dy
+      _x+=dx
+    }
+    
   }
   
   

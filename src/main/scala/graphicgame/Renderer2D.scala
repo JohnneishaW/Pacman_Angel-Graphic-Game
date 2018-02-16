@@ -16,9 +16,9 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
   private var lastCenterY = 0.0
 
   // Put variables for images here. Put your images in the src/main/resources directory.
-  private val floorImage = Renderer2D.loadImage("/images/floor.png")
-  private val wallImage = Renderer2D.loadImage("/images/wall.png")
-  private val playerImage = Renderer2D.loadImage("/images/player.png")
+  private val floorImage = Renderer2D.loadImage("/images/floor.jpg")
+  private val wallImage = Renderer2D.loadImage("/images/wall.jpeg")
+  private val playerImage = Renderer2D.loadImage("/images/playerImage.Jpg")
   private val enemyImage = Renderer2D.loadImage("/images/enemy.png")
   private val generatorImage = Renderer2D.loadImage("/images/generator.png")
   private val bulletImage = Renderer2D.loadImage("/images/bullet.png")
@@ -63,7 +63,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
       val img = e match {
         case p: Player => playerImage
         case e: Enemy => enemyImage
-        case b: Bullet => bulletImage
+       // case b: Bullet => bulletImage
       }
       if(level.maze.wrap) {
         for(rx <- -1 to 1; ry <- -1 to 1)
@@ -71,7 +71,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
       } else {
     	  gc.drawImage(img, blocksToPixelsX(e.x-e.width/2), blocksToPixelsY(e.y-e.height/2), e.width*blockSize, e.height*blockSize)
       }
-    }
+    } 
   }
 }
 

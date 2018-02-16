@@ -13,12 +13,17 @@ import Maze._
 
 
 object Main extends JFXApp {
+  val maze = Maze(3,false, 10, 10, 0.5)
+  val level = new Level(maze, List[Entity]())
+  val player = new Player(level)
+  new Enemy(level)
+
 	stage = new JFXApp.PrimaryStage {
 		title = "Pirates" // Change this to match the theme of your game.
 		scene = new Scene(1000,800){
 		  val canvas = new Canvas(1000,800)
       val gc = canvas.graphicsContext2D
-      val Player = new Player
+      val r = new Renderer2D(gc, 30)
       content = canvas
       
         
@@ -26,22 +31,22 @@ object Main extends JFXApp {
       
       onKeyPressed = (e: KeyEvent) => {
         e.code match{
-          case KeyCode.Up => Player.moveUpPressed()
-          case KeyCode.Down => Player.moveDownPressed()
-          case KeyCode.Left => Player.moveLeftPressed()
-          case KeyCode.Right => Player.moveRightPressed()
-          case KeyCode.Space => Player.spacePressed()
+          case KeyCode.Up => player.moveUpPressed()
+          case KeyCode.Down => player.moveDownPressed()
+          case KeyCode.Left => player.moveLeftPressed()
+          case KeyCode.Right => player.moveRightPressed()
+          case KeyCode.Space => player.spacePressed()
           case _ => 
         }
       }
         
       onKeyReleased = (e: KeyEvent) => {
         e.code match{
-          case KeyCode.Up => Player.moveUpReleased()
-          case KeyCode.Down => Player.moveDownReleased()
-          case KeyCode.Left => Player.moveLeftReleased()
-          case KeyCode.Right => Player.moveRightReleased()
-          case KeyCode.Space => Player.spaceReleased()
+          case KeyCode.Up => player.moveUpReleased()
+          case KeyCode.Down => player.moveDownReleased()
+          case KeyCode.Left => player.moveLeftReleased()
+          case KeyCode.Right => player.moveRightReleased()
+          case KeyCode.Space => player.spaceReleased()
           case _ => 
         }
       }
@@ -50,10 +55,10 @@ object Main extends JFXApp {
       val timer = AnimationTimer(time => {
         if(lastTime > 0) {
           val delay = (time - lastTime)/1e9
-          Player.update(delay)
+          level.updateAll(delay)
         }
         lastTime = time
-       // Renderer2D.render(level, cx, cy)
+        r.render(level, player.x,player.y)
       })
       timer.start()
     }
