@@ -20,6 +20,9 @@ class Player(val level:Level) extends Entity {
     if(movingDown) move(0, delay*speed)
     if(movingLeft) move(-delay*speed,0)
     if(movingRight) move(delay*speed,0)
+    if(space){
+      new Bullet(level, x, y, 1, 0)
+    }
     
   }
   
@@ -40,10 +43,10 @@ class Player(val level:Level) extends Entity {
    private var space = false
    
    def postCheck():Unit = {
-     ???
+     
    }
    def stillHere():Boolean = {
-     ???
+     true
    }
    
     //BUTTON PRESSED   
