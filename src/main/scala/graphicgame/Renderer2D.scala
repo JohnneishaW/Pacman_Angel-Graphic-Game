@@ -17,7 +17,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
 
   // Put variables for images here. Put your images in the src/main/resources directory.
   private val floorImage = Renderer2D.loadImage("/images/floor.jpg")
-  private val wallImage = Renderer2D.loadImage("/images/wall.jpeg")
+  private val wallImage = Renderer2D.loadImage("/images/wall.jpg")
   private val playerImage = Renderer2D.loadImage("/images/playerImage.Jpg")
   private val enemyImage = Renderer2D.loadImage("/images/enemy.png")
   private val generatorImage = Renderer2D.loadImage("/images/generator.png")

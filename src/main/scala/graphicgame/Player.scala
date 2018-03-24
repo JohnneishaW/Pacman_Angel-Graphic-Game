@@ -1,8 +1,10 @@
 package graphicgame
 
+import java.rmi.server.UnicastRemoteObject
+
 //extend maze?
 
-class Player(val level:Level) extends Entity {
+class Player(val level:Level) extends UnicastRemoteObject with Entity with RemotePlayer {
   level+=this
   private var _x =5.0
   private var _y = 5.0
