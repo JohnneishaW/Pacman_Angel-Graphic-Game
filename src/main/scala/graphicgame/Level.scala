@@ -22,6 +22,10 @@ class Level(val maze: Maze, private var _entities: List[Entity]) {
 
   }
 
+  def buildPassable():PassableLevel = {
+    new PassableLevel(maze, entities.map(_.buildPassable))  
+  }
+  
   def updateAll(delay: Double): Unit = {
     _entities.foreach(_.update(delay))
     _entities.foreach(_.postCheck())

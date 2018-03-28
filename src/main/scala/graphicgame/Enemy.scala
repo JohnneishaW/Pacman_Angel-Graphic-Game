@@ -7,26 +7,33 @@ class Enemy(val level: Level) extends Entity {
   private var _x = 2.0
   private var _y = 2.0
   val speed = 10
-  private var alive=true
+  private var alive = true
 
   def x = _x
   def y = _y
   def width = 1
   def height = 1.0
 
-  def update(delay: Double): Unit = {
-    val p = level.players.head
-    val ex = p.x.toInt
-    val ey = p.y.toInt
-    val left = bfs((x - 1).toInt, y.toInt, ex, ey)
-    val right = bfs((x + 1).toInt, y.toInt, ex, ey)
-    val up = bfs(x.toInt, (y - 1).toInt, ex, ey)
-    val down = bfs(x.toInt, (y + 1).toInt, ex, ey)
+  def buildPassable(): PassableEntity = {
+    new PassableEntity(Entity.EntityType.Enemy, x, y, width, height)
+  }
 
-    if (left <= right && left <= up && left <= down) move(-delay * speed, 0)
-    if (right <= left && right <= up && right <= down) move(delay * speed, 0)
-    if (up <= right && up <= left && up <= down) move(0, -delay * speed)
-    if (down <= right && down <= up && down <= left) move(0, delay * speed)
+  def update(delay: Double): Unit = {
+    val players = level.players
+    if (players.nonEmpty) {
+      val p = players.head
+      val ex = p.x.toInt
+      val ey = p.y.toInt
+      val left = bfs((x - 1).toInt, y.toInt, ex, ey)
+      val right = bfs((x + 1).toInt, y.toInt, ex, ey)
+      val up = bfs(x.toInt, (y - 1).toInt, ex, ey)
+      val down = bfs(x.toInt, (y + 1).toInt, ex, ey)
+
+      if (left <= right && left <= up && left <= down) move(-delay * speed, 0)
+      if (right <= left && right <= up && right <= down) move(delay * speed, 0)
+      if (up <= right && up <= left && up <= down) move(0, -delay * speed)
+      if (down <= right && down <= up && down <= left) move(0, delay * speed)
+    }
   }
 
   def move(dx: Double, dy: Double) = {
@@ -37,7 +44,7 @@ class Enemy(val level: Level) extends Entity {
   }
 
   def postCheck(): Unit = {
-    alive = level.bullets.forall(b => !intersects(b))
+    alive = level.bullets.forall(b => !Entity.intersects(b, this))
   }
   def stillHere(): Boolean = {
     alive

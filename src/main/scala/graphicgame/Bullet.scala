@@ -10,6 +10,9 @@ class Bullet(val level: Level, private var _x:Double, private var _y:Double, dx:
   def width = 1
   def height = 1.0
 
+  def buildPassable():PassableEntity = {
+     new PassableEntity(Entity.EntityType.Bullet, x, y, width, height)
+  }   
   def update(delay: Double): Unit = {
     move(speed*dx*delay, speed*delay*dy)
   }

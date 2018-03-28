@@ -14,7 +14,10 @@ class Player(val level:Level) extends UnicastRemoteObject with Entity with Remot
    def y = _y
    def width = 1
    def height = 1.0
-   
+  
+   def buildPassable():PassableEntity = {
+     new PassableEntity(Entity.EntityType.Player, x, y, width, height)
+  }   
  
    
    def update(delay:Double): Unit = {

@@ -1,29 +1,27 @@
 package graphicgame
 
-import scalafx.application.JFXApp
-import scalafx.scene.Scene
-import scalafx.scene.image.ImageView
-import scalafx.scene.image.Image
+import java.rmi.server.UnicastRemoteObject
 import scalafx.Includes._
+import scalafx.application.JFXApp
 import scalafx.scene.canvas.Canvas
-import scalafx.animation.AnimationTimer
+import scalafx.application.Platform
+import scalafx.scene.Scene
 import scalafx.scene.input.KeyCode
 import scalafx.scene.input.KeyEvent
-import Maze._
 
-object Main extends JFXApp {
-  val maze = Maze(3,false, 10, 10, 0.5)
-  val level = new Level(maze, List[Entity]())
-  //val passLevel = new PassableLevel(maze, Seq[PassableEntity]())
-  val player = new Player(level)
-  new Enemy(level)
+object Client extends UnicastRemoteObject with RemoteClient with JFXApp {
+  val server = java.rmi.Naming.lookup("rmi://localhost/PirateGame") match {
+    case rs: RemoteServer => rs
+  }
 
+  val player = server.connect(this)
+  val canvas = new Canvas(1000, 800)
+  val gc = canvas.graphicsContext2D
+  val r = new Renderer2D(gc, 30)
+  
   stage = new JFXApp.PrimaryStage {
     title = "Pirates" // Change this to match the theme of your game.
     scene = new Scene(1000, 800) {
-      val canvas = new Canvas(1000, 800)
-      val gc = canvas.graphicsContext2D
-      val r = new Renderer2D(gc, 30)
       content = canvas
 
       //key movements + animation timer
@@ -49,20 +47,11 @@ object Main extends JFXApp {
           case _ =>
         }
       }
-
-      var lastTime = 0L
-      val timer = AnimationTimer(time => {
-        if (lastTime > 0) {
-          val delay = (time - lastTime) / 1e9
-          level.updateAll(delay)
-        }
-        lastTime = time
-        val passLevel = level.buildPassable
-        r.render(passLevel, player.x, player.y)
-      })
-      timer.start()
+    }
+  }
+  def updateLevel(lvl: PassableLevel, cx: Double, cy: Double): Unit = {
+    Platform.runLater {
+      r.render(lvl, cx, cy)
     }
   }
 }
-        
-   
