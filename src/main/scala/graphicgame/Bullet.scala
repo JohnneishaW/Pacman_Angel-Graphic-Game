@@ -1,6 +1,8 @@
 package graphicgame
 
 class Bullet(val level: Level, private var _x:Double, private var _y:Double, dx:Double, dy:Double) extends Entity {
+//class Bullet[A](val level: Level[A], private var _x:Double, private var _y:Double, dx:Double, dy:Double) extends Entity {
+  //level.+=(this)
   level += this
   val speed = 10
   private var alive = true

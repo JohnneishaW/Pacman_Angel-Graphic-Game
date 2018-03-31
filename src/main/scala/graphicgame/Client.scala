@@ -20,7 +20,7 @@ object Client extends UnicastRemoteObject with RemoteClient with JFXApp {
   val r = new Renderer2D(gc, 30)
   
   stage = new JFXApp.PrimaryStage {
-    title = "Pirates" // Change this to match the theme of your game.
+    title = "Pirates" 
     scene = new Scene(1000, 800) {
       content = canvas
 

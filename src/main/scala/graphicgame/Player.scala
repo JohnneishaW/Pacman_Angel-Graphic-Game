@@ -5,6 +5,8 @@ import java.rmi.server.UnicastRemoteObject
 //extend maze?
 
 class Player(val level:Level) extends UnicastRemoteObject with Entity with RemotePlayer {
+//class Player[A](val level:Level[A]) extends UnicastRemoteObject with Entity with RemotePlayer {
+  //level.+=(this)
   level+=this
   private var _x =5.0
   private var _y = 5.0

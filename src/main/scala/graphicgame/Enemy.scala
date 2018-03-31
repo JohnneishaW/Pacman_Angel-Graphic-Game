@@ -3,6 +3,8 @@ package graphicgame
 import collection.mutable
 
 class Enemy(val level: Level) extends Entity {
+//class Enemy[A](val level: Level[A]) extends Entity {
+  //level.+=(this)
   level += this
   private var _x = 2.0
   private var _y = 2.0

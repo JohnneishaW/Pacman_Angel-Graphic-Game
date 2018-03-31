@@ -1,5 +1,8 @@
 package graphicgame
 
+/*
+ * Dr. Lewis, I tried to implement my MutableDLL in my Level class but failed. You can expect me in your office hours next week lol
+ */
 class MutableDLL[A] extends MySeq[A] {
   import MutableDLL.Node
 
@@ -75,6 +78,32 @@ class MutableDLL[A] extends MySeq[A] {
     }
     ret
   }
+  
+  //TODO: fix map + foreach
+  def map(pred:A => Boolean):MutableDLL[A] = {
+    val ret = new MutableDLL[A]()
+    var rover = end.next
+    while(rover != end){
+      if(pred(rover.data)){
+        ???
+      }
+      rover = rover.next
+    }
+    ret
+  }
+  def foreach(pred:A => Boolean):MutableDLL[A] = {
+    val ret = new MutableDLL[A]()
+    var rover = end.next
+    while(rover != end){
+      if(pred(rover.data)){
+        ???
+      }
+      rover = rover.next
+    }
+    ret
+  }
+  
+  
   
 }
 object MutableDLL {
