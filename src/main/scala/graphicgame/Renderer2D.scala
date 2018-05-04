@@ -2,12 +2,13 @@ package graphicgame
 
 import scalafx.scene.canvas.GraphicsContext
 import scalafx.scene.image.Image
+import scalafx.scene.paint.Color
 
 /**
  * This is a 2D renderer that with draw your game elements to a Canvas. You should change the
  * images to fit the style of your game. Also, alter the entities to match what you have in
  * your game.
- * 
+ *
  * Unlike the Maze class, you will do quite a bit of editing this file to change images and alter
  * other details. You will have to uncomment the render method to use this.
  */
@@ -16,13 +17,15 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
   private var lastCenterY = 0.0
 
   // Put variables for images here. Put your images in the src/main/resources directory.
-  private val floorImage = Renderer2D.loadImage("/images/floor.jpg")
-  private val wallImage = Renderer2D.loadImage("/images/wall.jpg")
-  private val playerImage = Renderer2D.loadImage("/images/playerImage.Jpg")
+  private val floorImage = Renderer2D.loadImage("/images/floor.png")
+  private val wallImage = Renderer2D.loadImage("/images/wall.gif")
+  private val playerImage = Renderer2D.loadImage("/images/playerImage.png")
   private val enemyImage = Renderer2D.loadImage("/images/enemy.png")
+  private val enemy2Image = Renderer2D.loadImage("/images/enemy2.png")
   private val generatorImage = Renderer2D.loadImage("/images/generator.png")
   private val bulletImage = Renderer2D.loadImage("/images/bullet.png")
-  
+  private val spikeImage = Renderer2D.loadImage("/images/spike.png")
+
   /**
    * These two methods are used to figure out where to draw things. They are used by the render.
    */
@@ -38,10 +41,10 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
   /**
    * This method is called to render things to the screen.
    */
-  def render(level: PassableLevel, cx: Double, cy: Double): Unit = {
+  def render(level: PassableLevel, cx: Double, cy: Double,score:Int): Unit = {
     lastCenterX = cx
     lastCenterY = cy
-
+    
     val drawWidth = (gc.canvas.getWidth / blockSize).toInt + 1
     val drawHeight = (gc.canvas.getWidth / blockSize).toInt + 1
 
@@ -63,15 +66,20 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
       val img = e.style match {
         case Entity.EntityType.Player => playerImage
         case Entity.EntityType.Enemy => enemyImage
+        case Entity.EntityType.Enemy2 => enemy2Image
         case Entity.EntityType.Bullet => bulletImage
+        case Entity.EntityType.Spike => spikeImage
       }
-      if(level.maze.wrap) {
-        for(rx <- -1 to 1; ry <- -1 to 1)
-    	    gc.drawImage(img, blocksToPixelsX(e.x-e.width/2+rx*level.maze.width), blocksToPixelsY(e.y-e.height/2+ry*level.maze.height), e.width*blockSize, e.height*blockSize)
+      if (level.maze.wrap) {
+        for (rx <- -1 to 1; ry <- -1 to 1)
+          gc.drawImage(img, blocksToPixelsX(e.x - e.width / 2 + rx * level.maze.width), blocksToPixelsY(e.y - e.height / 2 + ry * level.maze.height), e.width * blockSize, e.height * blockSize)
       } else {
-    	  gc.drawImage(img, blocksToPixelsX(e.x-e.width/2), blocksToPixelsY(e.y-e.height/2), e.width*blockSize, e.height*blockSize)
+        gc.drawImage(img, blocksToPixelsX(e.x - e.width / 2), blocksToPixelsY(e.y - e.height / 2), e.width * blockSize, e.height * blockSize)
       }
-    } 
+    }
+
+    gc.fill = Color.Blue
+    gc.fillText("Score: " + score.toString, 100, 100)
   }
 }
 
@@ -84,10 +92,10 @@ object Renderer2D {
    */
   def loadImage(path: String): Image = {
     val res = getClass.getResource(path)
-    if(res == null) {
-      new Image("file:src/main/resources"+path)
+    if (res == null) {
+      new Image("file:src/main/resources" + path)
     } else {
       new Image(res.toExternalForm())
     }
-  }  
+  }
 }

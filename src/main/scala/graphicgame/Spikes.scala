@@ -1,18 +1,17 @@
 package graphicgame
 
-class Bullet(val level: Level, private var _x:Double, private var _y:Double, dx:Double, dy:Double, val player:Player) extends Entity {
-
+class Spikes(val level: Level, private var _x:Double, private var _y:Double, dx:Double, dy:Double) extends Entity{
   level += this
-  val speed = 5
+  val speed = 4
   private var alive = true
   
   def x = _x
   def y = _y
-  def width = 1
-  def height = 1.0
+  def width = 0.5
+  def height = 0.5
 
   def buildPassable():PassableEntity = {
-     new PassableEntity(Entity.EntityType.Bullet, x, y, width, height)
+     new PassableEntity(Entity.EntityType.Spike, x, y, width, height)
   }   
   def update(delay: Double): Unit = {
     move(speed*dx*delay, speed*delay*dy)

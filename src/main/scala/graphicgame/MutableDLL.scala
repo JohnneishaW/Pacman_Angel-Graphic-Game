@@ -1,8 +1,6 @@
 package graphicgame
 
-/*
- * Dr. Lewis, I tried to implement my MutableDLL in my Level class but failed. You can expect me in your office hours next week lol
- */
+
 class MutableDLL[A] extends MySeq[A] {
   import MutableDLL.Node
 

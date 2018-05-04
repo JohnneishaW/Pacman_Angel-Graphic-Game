@@ -34,7 +34,7 @@ object Main extends JFXApp {
           case KeyCode.Down => player.moveDownPressed()
           case KeyCode.Left => player.moveLeftPressed()
           case KeyCode.Right => player.moveRightPressed()
-          case KeyCode.Space => player.spacePressed()
+         // case KeyCode.Space => player.spacePressed()
           case _ =>
         }
       }
@@ -45,7 +45,7 @@ object Main extends JFXApp {
           case KeyCode.Down => player.moveDownReleased()
           case KeyCode.Left => player.moveLeftReleased()
           case KeyCode.Right => player.moveRightReleased()
-          case KeyCode.Space => player.spaceReleased()
+          //case KeyCode.Space => player.spaceReleased()
           case _ =>
         }
       }
@@ -58,7 +58,8 @@ object Main extends JFXApp {
         }
         lastTime = time
         val passLevel = level.buildPassable
-        r.render(passLevel, player.x, player.y)
+      //  val score = player.totalScore
+       // r.render(passLevel, player.x, player.y,score)
       })
       timer.start()
     }

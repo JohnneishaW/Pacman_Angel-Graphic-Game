@@ -9,13 +9,15 @@ import scala.concurrent.Future
 import java.io.BufferedInputStream
 import java.io.ObjectInputStream
 
-object Server extends UnicastRemoteObject with RemoteServer with App{  
+object Server extends UnicastRemoteObject with RemoteServer with App {
   java.rmi.registry.LocateRegistry.createRegistry(1099)
-  java.rmi.Naming.rebind("PirateGame", this)
+  java.rmi.Naming.rebind("Fighting the Devil", this)
 
   val maze = Maze(3, false, 10, 10, 0.5)
   val level = new Level(maze, List[Entity]())
-  new Enemy(level)
+
+  val e = new Enemy(level)
+  level += e
 
   private var pLst = List[(Player, RemoteClient)]()
   def connect(client: RemoteClient): RemotePlayer = {
@@ -35,10 +37,11 @@ object Server extends UnicastRemoteObject with RemoteServer with App{
       level.updateAll(delay)
       delaySum += delay
       if (delaySum >= updateInterval) {
+        if(math.random() < delaySum/7) new Enemy(level)
         val passLevel = level.buildPassable
         delaySum = 0
         for ((p, c) <- pLst) {
-          c.updateLevel(passLevel, p.x, p.y)
+          c.updateLevel(passLevel, p.x, p.y, p.totalScore)
         }
       }
     }

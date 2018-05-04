@@ -2,23 +2,25 @@ package graphicgame
 
 import collection.mutable
 
-class Enemy(val level: Level) extends Entity {
-  //class Enemy[A](val level: Level[A]) extends Entity {
-  //level.+=(this)
+
+//TODO: LL && SLOW DOWN SPIKES
+
+class Enemy2(val level: Level) extends Entity {
   level += this
-  val worth = 1
-  private var _x = 2.0+3*util.Random.nextInt(10)
-  private var _y =2.0+3*util.Random.nextInt(10)
-  val speed = 5
+  val worth = 10
+  private var _x: Double = 2.0+3*util.Random.nextInt(10)
+  private var _y: Double =2.0+3*util.Random.nextInt(10)
+  val speed = util.Random.nextInt(6)
   private var alive = true
+  val delay = 30
 
   def x = _x
   def y = _y
   def width = 1
-  def height = 1.0
+  def height = 1.2
 
   def buildPassable(): PassableEntity = {
-    new PassableEntity(Entity.EntityType.Enemy, x, y, width, height)
+    new PassableEntity(Entity.EntityType.Enemy2, x, y, width, height)
   }
 
   def update(delay: Double): Unit = {
@@ -48,6 +50,7 @@ class Enemy(val level: Level) extends Entity {
 
   def postCheck(): Unit = {
     if (alive) {
+      if (math.random() < delay) new Spikes(level, x, y, 1, 0)
       val bulletsHitMe = level.bullets.filter(b => Entity.intersects(b, this))
       alive = bulletsHitMe.isEmpty
       bulletsHitMe.foreach(b => b.player.updateScore(worth))

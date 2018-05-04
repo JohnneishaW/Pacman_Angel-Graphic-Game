@@ -22,7 +22,7 @@ object Entity {
   }
 
   object EntityType extends Enumeration {
-    val Player, Enemy, Bullet, Generator = Value
+    val Player, Enemy, Enemy2, Bullet, Spike, Generator = Value
    }
 }
 
