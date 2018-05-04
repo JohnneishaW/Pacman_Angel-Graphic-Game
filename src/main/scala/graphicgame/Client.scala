@@ -10,7 +10,7 @@ import scalafx.scene.input.KeyCode
 import scalafx.scene.input.KeyEvent
 
 object Client extends UnicastRemoteObject with RemoteClient with JFXApp {
-  val server = java.rmi.Naming.lookup("rmi://localhost/PirateGame") match {
+  val server = java.rmi.Naming.lookup("rmi://localhost/Fight") match {
     case rs: RemoteServer => rs
   }
 

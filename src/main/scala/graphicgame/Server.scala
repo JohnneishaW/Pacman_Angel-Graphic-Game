@@ -11,7 +11,7 @@ import java.io.ObjectInputStream
 
 object Server extends UnicastRemoteObject with RemoteServer with App {
   java.rmi.registry.LocateRegistry.createRegistry(1099)
-  java.rmi.Naming.rebind("Fighting the Devil", this)
+  java.rmi.Naming.rebind("Fight", this)
 
   val maze = Maze(3, false, 10, 10, 0.5)
   val level = new Level(maze, List[Entity]())

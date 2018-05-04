@@ -81,10 +81,12 @@ class Player(val level: Level) extends UnicastRemoteObject with Entity with Remo
   def postCheck(): Unit = {
     val spikesHitMe = level.spikes.filter(s => Entity.intersects(s, this))
     alive = spikesHitMe.isEmpty
-    if (alive == false) level.-=(this)
+    
+    val bulletsHitMe = level.bullets.filter(b => b.player != this && Entity.intersects(b, this))
+    alive = alive && bulletsHitMe.isEmpty
 
-    val bulletsHitMe = level.bullets.filter(b => Entity.intersects(b, this))
-    alive = bulletsHitMe.isEmpty
+    val eIntersect = level.enemy1.filter(e => Entity.intersects(e, this))
+    alive = alive && eIntersect.isEmpty
     if (alive == false) level.-=(this)
 
   }

@@ -1,47 +1,17 @@
 package graphicgame
 
 class Level(val maze: Maze, private var _entities: List[Entity]) {
-  //class Level[A](val maze: Maze, private var _entities: MutableDLL[Entity]) extends MutableDLL[A]{
-
-  /*def entities = _entities
-
-  def players = _entities.add(0, Entity) {
-    case p: Player => p
-  }
-  def enemies = _entities.add(0, Entity) {
-    case e: Enemy => e
-  }
-  def bullets = _entities.add(0, Entity) {
-    case b: Bullet => b
-  }
- 
-  
-  def +=(e: Entity): Unit = {
-    _entities.+=(e)
-  }
-  
-  def -=(e: Entity): Unit = {
-    _entities = _entities.filter(_ != e)
-
-  }
-
-  def buildPassable():PassableLevel = {
-    new PassableLevel(maze, entities.map(_.buildPassable))  
-  }
-  
-  def updateAll(delay: Double): Unit = {
-    _entities.foreach(_.update(delay))
-    _entities.foreach(_.postCheck())
-    _entities = _entities.filter(_.stillHere())
-  }*/
 
   def entities = _entities
 
   def players = _entities.collect {
     case p: Player => p
   }
-  def enemies = _entities.collect {
+  def enemy1 = _entities.collect {
     case e: Enemy => e
+  }
+  def enemy2 = _entities.collect {
+    case e: Enemy2 => e
   }
   def bullets = _entities.collect {
     case b: Bullet => b
