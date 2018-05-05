@@ -10,7 +10,7 @@ import scalafx.scene.input.KeyCode
 import scalafx.scene.input.KeyEvent
 
 object Client extends UnicastRemoteObject with RemoteClient with JFXApp {
-  val server = java.rmi.Naming.lookup("rmi://localhost/Fight") match {
+  val server = java.rmi.Naming.lookup("rmi://localhost/AngelAngela") match {
     case rs: RemoteServer => rs
   }
 
@@ -20,7 +20,7 @@ object Client extends UnicastRemoteObject with RemoteClient with JFXApp {
   val r = new Renderer2D(gc, 30)
 
   stage = new JFXApp.PrimaryStage {
-    title = "Pirates"
+    title = "Angel Angela"
     scene = new Scene(1000, 800) {
       content = canvas
 

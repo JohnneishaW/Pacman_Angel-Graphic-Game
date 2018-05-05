@@ -3,6 +3,8 @@ package graphicgame
 import scalafx.scene.canvas.GraphicsContext
 import scalafx.scene.image.Image
 import scalafx.scene.paint.Color
+import scalafx.scene.text.Font
+import scalafx.scene.text.FontWeight
 
 /**
  * This is a 2D renderer that with draw your game elements to a Canvas. You should change the
@@ -79,6 +81,7 @@ class Renderer2D(gc: GraphicsContext, blockSize: Double) {
     }
 
     gc.fill = Color.Blue
+    //Font.font(null, FontWeight.Bold, 36)
     gc.fillText("Score: " + score.toString, 100, 100)
   }
 }

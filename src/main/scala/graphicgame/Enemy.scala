@@ -14,8 +14,8 @@ class Enemy(val level: Level) extends Entity {
 
   def x = _x
   def y = _y
-  def width = 1
-  def height = 1.0
+  def width = 0.8
+  def height = 0.8
 
   def buildPassable(): PassableEntity = {
     new PassableEntity(Entity.EntityType.Enemy, x, y, width, height)
