@@ -9,7 +9,7 @@ class Enemy(val level: Level) extends Entity {
   val worth = 1
   private var _x = 2.0+3*util.Random.nextInt(10)
   private var _y =2.0+3*util.Random.nextInt(10)
-  val speed = 5
+  val speed = 3
   private var alive = true
 
   def x = _x
