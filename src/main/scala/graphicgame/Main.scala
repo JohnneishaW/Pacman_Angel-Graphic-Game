@@ -19,7 +19,7 @@ object Main extends JFXApp {
   new Enemy(level)
 
   stage = new JFXApp.PrimaryStage {
-    title = "Pirates" // Change this to match the theme of your game.
+    title = "Flying Angel" 
     scene = new Scene(1000, 800) {
       val canvas = new Canvas(1000, 800)
       val gc = canvas.graphicsContext2D
